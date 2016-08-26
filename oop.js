@@ -24,6 +24,30 @@
 //addNumbers(1,1,1,1,1);
 //addNumbers(10,10,10);
 
+//error handling
+
+function getPerson(chunk){
+        if(chunk != null){
+                var chunkArray = chunk.split(" ");
+                var person = {};
+                person.firstName = chunkArray[0];
+                person.lastName = chunkArray[1];
+                return person;
+        }else{
+                console.error("Whatever Error");
+        }
+}
+
+window.onerror = function(errorMessage, fileName, lineNumber){
+   console.error("___________________");
+   console.log("errorMessage:", errorMessage);
+   console.log("fileName:", fileName);
+   console.log("lineNumber:", lineNumber);
+   return false;
+};
+
+//use with try-catch for uncaught
+
 var arena = [];
 var intervalID = null;
 var currentIndex = -1;

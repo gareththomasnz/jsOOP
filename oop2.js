@@ -105,7 +105,7 @@
                         }
                 };
  
-                var gladiator1 = {name: "Anthony",      attack: 15,     defense: 20,    hitPoints: 10,  weapon: dagger};
+                var gladiator1 = {name: "Anthony",      attack: 15,     defense: 10,    hitPoints: 10,  weapon: dagger};
                 var gladiator2 = {name: "Tom",          attack: 13,     defense: 7,     hitPoints: 10,  weapon: claw};
                 var gladiator3 = {name: "Dom",          attack: 10,     defense: 6,     hitPoints: 7,   weapon: stick};
                 var gladiator4 = {name: "Tim",          attack: 12,     defense: 11,    hitPoints: 9,   weapon: boomStick};
