@@ -48,118 +48,118 @@
 
 //use with try-catch for uncaught
 
-var arena = [];
-var intervalID = null;
-var currentIndex = -1;
-
-function rollDice(howMany, whatType){
-        var result = 0;
-        for(i=0; i<howMany;i++){
-                result += Math.floor(Math.random() * whatType) + 1;
-        }
-        return result;
-}
-
-
-function calculateDamage(attacker){
-        var damageRoll = attacker.weapon.getDamage();
-        return damageRoll;
-}
-
-function handleAttack(attacker, defender){
-        d(attacker.name + " is attacking " + defender.name);
-        var didTheyHit = didHit(attacker, defender);
-        if(theyDidHit === true){
-                var howMuchDamage = calculateDamage(attacker);
-                defender.hitPoints -= howMuchDamage();
-                d("hit for " + howMuchDamage + " points of damage" + defender.name + " has " + defender.hitPoints + " hit points left");
-                if(defender.hitPoints <= 0){
-                       gameOverMan(defender); 
-                }
-        }else{
-                d("missed");
-        }
-}
-
-function calculateTarget(attacker, arena){
-        var copyArena = arena.concat();
-        var myIndex = copyArena.indexOf(attacker);
-        copyArena.splice(myIndex, 1);
-        var sortByLowestHitPoints = function(a, b){
-                if(a.hitPoints > b.hitPoints){
-                        return 1;
-                }else if(a.hitPoints < b.hitPoints){
-                        return -1;
-                }else{
-                        return 0;
-                }
-        };
-        copyArena.sort(sortByLowestHitPoints);
-        return copyArena[0];
-}
-
-function startGame(){
-        
-        var dagger = {
-                getDamage: function(){
-                  return rollDice(1, 4);
-                  }  
-        };
-         
-         var claw = {
-              getDamage: function(){
-                return rollDice(1, 3);
-                }  
-        };
-         var halberd = {
-                getDamage: function(){
-                  return rollDice(1, 12);
-                  }  
-        };
-         
-         var boomstick = {
-              getDamage: function(){
-                return rollDice(3, 12);
-                }  
-        };
-        
-        var gladiator1 = {name: "Jesse", attack: 2, defense: 10, hitPoints: 10, weapon: dagger};
-        var gladiator2 = {name: "Peter", attack: 4, defense: 12, hitPoints: 14, weapon: claw};
-        var gladiator3 = {name: "Princess", attack: 1, defense: 14, hitPoints: 10, weapon: halberd};
-        var gladiator4 = {name: "Bruce", attack: 5, defense: 11, hitPoints: 12, weapon: boomstick};
-        
-        arena.push(gladiator1, gladiator2, gladiator3, gladiator4);
-        currentIndex = -1;
-        intervalID = setInterval(nextAttack, 3000);
-}
+//
+//var intervalID = null;
+//var currentIndex = -1;
+//
+//function rollDice(howMany, whatType){
+//        var result = 0;
+//        for(i=0; i<howMany;i++){
+//                result += Math.floor(Math.random() * whatType) + 1;
+//        }
+//        return result;
+//}
 //
 //
-function gameOverMan(){
-     var defendersIndex = arena.indexOf(defender);
-     arena.splice(defendersIndex, 1);
-     if(arena.length <= 1){
-        clearInterval(intervalID);
-        intervalID = null;
-     }
-}
+//function calculateDamage(attacker){
+//        var damageRoll = attacker.weapon.getDamage();
+//        return damageRoll;
+//}
 //
-function nextAttack(){
-        if(currentIndex< arena.length)
-        {
-                currentIndex++;
-        }else{
-            currentIndex = 0;    
-        }
-        var currentGladiator = arena[currentIndex];
-        d(currentGladiator + "'s turn");
-        var currentDefender = calculateTarget(currentGladiator);
-        handleAttack(currentGladiator, currentDefender);
-}
+//function handleAttack(attacker, defender){
+//        d(attacker.name + " is attacking " + defender.name);
+//        var didTheyHit = didHit(attacker, defender);
+//        if(theyDidHit === true){
+//                var howMuchDamage = calculateDamage(attacker);
+//                defender.hitPoints -= howMuchDamage();
+//                d("hit for " + howMuchDamage + " points of damage" + defender.name + " has " + defender.hitPoints + " hit points left");
+//                if(defender.hitPoints <= 0){
+//                       gameOverMan(defender); 
+//                }
+//        }else{
+//                d("missed");
+//        }
+//}
+//
+//function calculateTarget(attacker, arena){
+//        var copyArena = arena.concat();
+//        var myIndex = copyArena.indexOf(attacker);
+//        copyArena.splice(myIndex, 1);
+//        var sortByLowestHitPoints = function(a, b){
+//                if(a.hitPoints > b.hitPoints){
+//                        return 1;
+//                }else if(a.hitPoints < b.hitPoints){
+//                        return -1;
+//                }else{
+//                        return 0;
+//                }
+//        };
+//        copyArena.sort(sortByLowestHitPoints);
+//        return copyArena[0];
+//}
+//
+//function startGame(){
+//        
+//        var dagger = {
+//                getDamage: function(){
+//                  return rollDice(1, 4);
+//                  }  
+//        };
+//         
+//         var claw = {
+//              getDamage: function(){
+//                return rollDice(1, 3);
+//                }  
+//        };
+//         var halberd = {
+//                getDamage: function(){
+//                  return rollDice(1, 12);
+//                  }  
+//        };
+//         
+//         var boomstick = {
+//              getDamage: function(){
+//                return rollDice(3, 12);
+//                }  
+//        };
+//        
+//        var gladiator1 = {name: "Jesse", attack: 2, defense: 10, hitPoints: 10, weapon: dagger};
+//        var gladiator2 = {name: "Peter", attack: 4, defense: 12, hitPoints: 14, weapon: claw};
+//        var gladiator3 = {name: "Princess", attack: 1, defense: 14, hitPoints: 10, weapon: halberd};
+//        var gladiator4 = {name: "Bruce", attack: 5, defense: 11, hitPoints: 12, weapon: boomstick};
+//        
+//        arena.push(gladiator1, gladiator2, gladiator3, gladiator4);
+//        currentIndex = -1;
+//        intervalID = setInterval(nextAttack, 3000);
+//}
 //
 //
-function d(o){
-        console.log(o);
-}
+//function gameOverMan(){
+//     var defendersIndex = arena.indexOf(defender);
+//     arena.splice(defendersIndex, 1);
+//     if(arena.length <= 1){
+//        clearInterval(intervalID);
+//        intervalID = null;
+//     }
+//}
+//
+//function nextAttack(){
+//        if(currentIndex< arena.length)
+//        {
+//                currentIndex++;
+//        }else{
+//            currentIndex = 0;    
+//        }
+//        var currentGladiator = arena[currentIndex];
+//        d(currentGladiator + "'s turn");
+//        var currentDefender = calculateTarget(currentGladiator);
+//        handleAttack(currentGladiator, currentDefender);
+//}
+//
+//
+//function d(o){
+//        console.log(o);
+//}
 
 
 
@@ -167,189 +167,94 @@ function d(o){
 //d(rollDice(1, 20));
 //d(rollDice(3, 4));
 
-function didHit(attacker, defender){
-        var toHitNumber = defender.defense - attacker.attack;
-        var roll = rollDice(1, 20);
-        if(roll>=toHitNumber){
-                return true;
-        }else
-        {
-                return false;
-        }
-}
+//function didHit(attacker, defender){
+//        var toHitNumber = defender.defense - attacker.attack;
+//        var roll = rollDice(1, 20);
+//        if(roll>=toHitNumber){
+//                return true;
+//        }else
+//        {
+//                return false;
+//        }
+//}
 //
 //startGame();
 
-var Gladiators = [
-        {hitPoints: 10, maxHitPoints: 10},
-        {hitPoints: 8, maxHitPoints: 10},
-        {hitPoints: 10, maxHitPoints: 10},
-        {hitPoints: 3, maxHitPoints: 10},
-        {hitPoints: 2, maxHitPoints: 10},
-        {hitPoints: 4, maxHitPoints: 10},
-];
+//var Gladiators = [
+//        {hitPoints: 10, maxHitPoints: 10},
+//        {hitPoints: 8, maxHitPoints: 10},
+//        {hitPoints: 10, maxHitPoints: 10},
+//        {hitPoints: 3, maxHitPoints: 10},
+//        {hitPoints: 2, maxHitPoints: 10},
+//        {hitPoints: 4, maxHitPoints: 10},
+//];
+//
+//var hurtGladiators = _filter(gladiators, function(gladiator){
+//        if(gladiator.hitPoints <= (gladiator.maxPoints/2)){
+//                return true;
+//        }else{
+//                return false;
+//        }
+//        });
+//
+//hurtGladiators.sort(function(gladiatorA, gladiatorB){
+//        if(gladiatorA.hitPoints > gladiatorB.hitPoints){
+//                return 1; 
+//        }else if(gladiatorA.hitPoints < gladiatorB.hitPoints){
+//                return -1;
+//        }else{
+//                return 0;
+//        }    
+//});
 
-var hurtGladiators = _filter(gladiators, function(gladiator){
-        if(gladiator.hitPoints <= (gladiator.maxPoints/2)){
-                return true;
-        }else{
-                return false;
-        }
-        });
-
-hurtGladiators.sort(function(gladiatorA, gladiatorB){
-        if(gladiatorA.hitPoints > gladiatorB.hitPoints){
-                return 1; 
-        }else if(gladiatorA.hitPoints < gladiatorB.hitPoints){
-                return -1;
-        }else{
-                return 0;
-        }    
-});
-
-var healingTarget = hurtGladiators[0];
-
-d(didHit(gladiator1, gladiator2));
-d(didHit(gladiator2, gladiator1));
-
-d(calculateDamage(gladiator1));
-d(calculateDamage(gladiator2));
+//var healingTarget = hurtGladiators[0];
+//
+//d(didHit(gladiator1, gladiator2));
+//d(didHit(gladiator2, gladiator1));
+//
+//d(calculateDamage(gladiator1));
+//d(calculateDamage(gladiator2));
+//
+//console.log(jesse);
+//console.log(jesse.sayName());
+//console.log(john.name);
+//console.log(john.weapon);
+//console.log(Gladiator.instances);
 
 
-function Gladiator(name, attack, defense, hitPoints){
-       this.name = name;
-       this.attack = attack;
-       this. defense = defense;
-       this.hitPoints = hitPoints;
-       this.weapon = "sword";
-       Gladiator.instances++;
-}
-Gladiator.prototype.sayName = function(){
-        console.log("Hello my name is " + this.name);
-};
+//var testTiger = new Tiger();
+//testTiger.init("Test Tiger", 14, 14, 30);
+//console.log(testTiger);
+//console.log("testTiger" + testTiger);
+//
+//Tiger.prototype.getRandomTargetInArena = function(arena){
+//        var myIndex = arena.indexOf(this);
+//        var targetArray = arena.concat();
+//        targetArray.splice(myIndex, 1);
+//        //var randomIndex = Math.floor(Math.random() * targetArray.length);
+//        //return targetArray[randomIndex];
+//        var sortByLowestHitPoints = function(a, b){
+//                if(a.hitPoints > b.hitPoints){
+//                        return 1;
+//                }else if(a.hitPoints < b.hitPoints){
+//                       return -1; 
+//                }else{
+//                        return 0;
+//                }
+//        };
+//        targetArray.sort(sortByLowestHitPoints);
+//        return targetArray[0];
+//};
 
-Gladiator.instances = 0;
-
-function makeGladiator(name, attack, defense, hitPoints){
-        var instance = new Gladiator(name, attack, defense, hitPoints);
-        return instance;
-}
+var arena = [];
 
 var jesse = makeGladiator("Jesse", 10, 12, 10);
 var john  = makeGladiator("John", 10, 12, 20);
-
-console.log(jesse);
-console.log(jesse.sayName());
-console.log(john.name);
-console.log(john.weapon);
-console.log(Gladiator.instances);
-
-Gladiator.prototype.roll = function(howMany, whatType){
-        var total = 0;
-        for(var i=0; i<howMany;i++){
-                result += Math.floor(Math.random() * whatType) + 1;
-                total = total + result;
-        }
-        return total;
-};
-
-Gladiator.prototype.attackTarget = function(theTargetWereAttacking){
-        var attackRoll = this.roll(1, 20);
-        attackRoll = attackRoll + this.attack;
-        if(attackRoll >= theTargetWereAttacking.defense){
-            return true;    
-        }else{
-             return false;   
-        }
-};
-
-Gladiator.prototype.applyDamage = function(theThingWeHit){
-        var roll = this.roll(this.weapon.howManyDie, this.weapon.typeOfDie);
-        roll = roll + this.attack;
-        theThingWeHit.hitPoints = theThingWeHit.hitPoints - roll;
-        return roll;
-};
-
-Gladiator.prototype.getRandomTargetInArena = function(arena){
-        var myIndex = arena.indexOf(this);
-        var targetArray = arena.concat();
-        targetArray.splice(myIndex, 1);
-        var randomIndex = Math.floor(Math.random() * targetArray.length);
-        return targetArray[randomIndex];
-};
-
-function Weapon(howManyDie, typeOfDie){
-        this.howManyDie = howManyDie;
-        this.typeOfDie = typeOfDie;
-}
-
-function Human(name, attack, defense, hitPoints){
-        this.name = name; 
-        this.attack = attack;
-        this. defense = defense;
-        this.hitPoints = hitPoints;
-        this.weapon = new weapon(1, 1);     
-}
-
-Human.prototype = new Gladiator();
-Human.prototype.constructor = Human;
-
-function Animal(name, attack, defense, hitPoints){
-        this.name = name; 
-        this.attack = attack;
-        this. defense = defense;
-        this.hitPoints = hitPoints;
-        this.weapon = new weapon(1, 2);     
-}
-
-Animal.prototype = new Gladiator();
-Animal.prototype.constructor = Animal;
-Animal.prototype.getRandomTargetInArena = function(arena){
-        var myIndex = arena.indexOf(this);
-        var targetArray = arena.concat();
-        targetArray.splice(myIndex, 1);
-                var sortByLowestHitPoints = function(a, b){
-                if(a.hitPoints > b.hitPoints){
-                        return 1;
-                }else if(a.hitPoints < b.hitPoints){
-                       return -1; 
-                }else{
-                        return 0;
-                }
-        };
-        targetArray.sort(sortByLowestHitPoints);
-        return targetArray[0];
-        //var randomIndex = Math.floor(Math.random() * targetArray.length);
-        //return targetArray[randomIndex];
-};
 
 var Simon = new Human("Simon", 10, 12, 10);
 var Peter = new Human("Peter", 12, 10, 12);
 var Karl = new Animal("Karl", 14, 10, 14);
 Karl.weapon = new Weapon(2, 6);
 
-
-var testTiger = new Tiger();
-testTiger.init("Test Tiger", 14, 14, 30);
-console.log(testTiger);
-console.log("testTiger" + testTiger);
-
-Tiger.prototype.getRandomTargetInArena = function(arena){
-        var myIndex = arena.indexOf(this);
-        var targetArray = arena.concat();
-        targetArray.splice(myIndex, 1);
-        //var randomIndex = Math.floor(Math.random() * targetArray.length);
-        //return targetArray[randomIndex];
-        var sortByLowestHitPoints = function(a, b){
-                if(a.hitPoints > b.hitPoints){
-                        return 1;
-                }else if(a.hitPoints < b.hitPoints){
-                       return -1; 
-                }else{
-                        return 0;
-                }
-        };
-        targetArray.sort(sortByLowestHitPoints);
-        return targetArray[0];
-};
+arena.push(Simon, Peter, Karl, jesse, john);
 
